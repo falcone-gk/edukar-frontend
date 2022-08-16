@@ -3,7 +3,8 @@ import routes from './routes/index'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: routes,
+  linkActiveClass: 'text-white'
 })
 
 export default router
