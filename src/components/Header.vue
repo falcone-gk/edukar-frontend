@@ -1,6 +1,6 @@
 <template>
   <header class="h-14 bg-white shadow-md relative z-30">
-    <div class="flex container items-center justify-between px-6 py-2 w-full h-full bg-white mx-auto md:py-0">
+    <div class="flex container items-center justify-between px-3 py-2 w-full h-full bg-white mx-auto md:py-0">
       <div class="flex-shrink-0 mr-12 object-contain h-6">
         <img src="@/assets/logo-edukar.png" class="h-6 w-auto" alt="edukar">
       </div>
