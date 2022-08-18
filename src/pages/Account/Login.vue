@@ -11,7 +11,7 @@
         </div>
         <div class="mb-6">
           <label class="label-control" for="password">Contraseña</label>
-          <input class="form-control" type="passowrd">
+          <input class="form-control" type="password">
         </div>
         <input class="w-full btn-primary" type="submit" value="Iniciar sesión">
       </form>
