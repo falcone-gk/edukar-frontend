@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: '',
                 name: 'forum',
                 component: () => import('@/pages/Forum/Forum.vue')
+            },
+            {
+                path: '/new-post',
+                name: 'new-post',
+                component: () => import('@/pages/Forum/NewPost.vue')
             }
         ]
     },
