@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="flex items-center gap-6">
-          <button class="rounded border-2 border-indigo-500 hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
+          <button class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
             Sesión</button>
           <button class="btn-primary">Registrarse</button>
         </div>
