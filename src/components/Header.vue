@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="flex items-center gap-6">
-          <button class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
+          <button @click="router.push('login')" class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
             Sesión</button>
           <button class="btn-primary">Registrarse</button>
         </div>
@@ -38,6 +38,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
+import { Router, useRouter } from 'vue-router';
 
 const navShown = ref<boolean>(false)
 const toggleMenu = () => {
@@ -46,4 +47,6 @@ const toggleMenu = () => {
 const classComputed = computed(() => ({
   'transform translate-y-full md:transform-none': navShown.value
 }))
+
+const router: Router = useRouter()
 </script>

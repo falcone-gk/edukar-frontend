@@ -13,6 +13,17 @@ const routes: Array<RouteRecordRaw> = [
         ]
     },
     {
+        path: '/account',
+        component: () => import('@/layouts/Default.vue'),
+        children:[
+            {
+                path: '/login',
+                name: 'login',
+                component: () => import('@/pages/Account/Login.vue')
+            }
+        ]
+    },
+    {
         path: '/foro',
         component: () => import('@/layouts/Default.vue'),
         children:[
