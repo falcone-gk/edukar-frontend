@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded max-w-4xl mx-auto p-4 shadow-md text-center">
+  <div class="rounded border-t border-gray-100 max-w-4xl mx-auto p-4 shadow-md text-center">
     <h1 class="text-3xl mb-8">Nuevo Post</h1>
     <div>
       <form class="text-left">
