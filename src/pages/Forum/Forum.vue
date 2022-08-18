@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col-reverse md:flex-row gap-4">
     <div class="flex flex-col gap-2 basis-3/4">
-      <PostResume v-for="i in 5" :key="'post-'+i" />
+      <h1 class="text-3xl">Todos</h1>
+      <PostResume v-for="i in 8" :key="'post-'+i" />
     </div>
     <div class="basis-1/4">
       <div class="mb-6">
