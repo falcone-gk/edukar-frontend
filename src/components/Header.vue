@@ -13,15 +13,15 @@
         <div class=" w-full md:mr-auto md:h-full">
           <ul class="flex h-full flex-col md:flex-row">
             <li
-              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24">
+              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24 [&>a]:w-full [&>a]:h-full [&>a]:grid [&>a]:place-items-center">
               <router-link to="/">Inicio</router-link>
             </li>
             <li
-              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24">
+              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24 [&>a]:w-full [&>a]:h-full [&>a]:grid [&>a]:place-items-center">
               <router-link to="/foro">Foro</router-link>
             </li>
             <li
-              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24">
+              class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24 [&>a]:w-full [&>a]:h-full [&>a]:grid [&>a]:place-items-center">
               <router-link to="/">Servicios</router-link>
             </li>
           </ul>
