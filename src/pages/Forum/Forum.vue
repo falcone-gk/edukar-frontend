@@ -6,7 +6,7 @@
     </div>
     <div class="basis-1/4">
       <div class="mb-6">
-        <button @click="goToNewPost" class="btn-primary w-full">+ Crear nuevo post</button>
+        <button @click="router.push({name: 'new-post'})" class="btn-primary w-full">+ Crear nuevo post</button>
       </div>
       <form class="rounded bg-white border-[1px] border-gray-300 shadow-md px-4 py-2">
         <h1 class="mb-2 font-bold">Cursos</h1>
@@ -30,9 +30,6 @@ import { ref } from 'vue';
 import { Router, useRouter } from 'vue-router';
 
 const router: Router = useRouter()
-const goToNewPost = () => {
-  router.push('new-post')
-}
 
 const checked = ref<number>(0)
 const courses: string[] = ['Todos', 'Aritmética', 'Geometría', 'Trigonometría', 'Raz. Mat.']

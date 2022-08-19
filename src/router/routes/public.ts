@@ -9,20 +9,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: '',
                 name: 'home',
                 component: () => import('@/pages/Home.vue')
-            }
-        ]
-    },
-    {
-        path: '/account',
-        component: () => import('@/layouts/Default.vue'),
-        children:[
+            },
             {
-                path: '/login',
+                path: 'login',
                 name: 'login',
                 component: () => import('@/pages/Account/Login.vue')
             },
             {
-                path: '/signup',
+                path: 'signup',
                 name: 'signup',
                 component: () => import('@/pages/Account/Signup.vue')
             },
@@ -38,12 +32,12 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/pages/Forum/Forum.vue')
             },
             {
-                path: '/new-post',
+                path: 'new-post',
                 name: 'new-post',
                 component: () => import('@/pages/Forum/NewPost.vue')
             },
             {
-                path: '/post/:slug',
+                path: 'post/:slug',
                 name: 'post',
                 component: () => import('@/pages/Forum/Post.vue')
             },

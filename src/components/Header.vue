@@ -27,9 +27,9 @@
           </ul>
         </div>
         <div class="flex items-center gap-6">
-          <button @click="router.push('login')" class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
+          <button @click="router.push({name: 'login'})" class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
             Sesión</button>
-          <button @click="router.push('signup')" class="btn-primary">Registrarse</button>
+          <button @click="router.push({name: 'signup'})" class="btn-primary">Registrarse</button>
         </div>
       </nav>
     </div>
