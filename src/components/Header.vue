@@ -4,8 +4,9 @@
       <div class="flex-shrink-0 mr-12 object-contain h-6">
         <img src="@/assets/logo-edukar.png" class="h-6 w-auto" alt="edukar">
       </div>
-      <button @click="toggleMenu" class="md:hidden">
-        <span>Menu</span>
+      <button @click="toggleMenu" class="flex justify-center items-center h-[20px] w-[30px] text-lg md:hidden">
+        <font-icon v-if="!navShown" class="text-primary-color h-full" icon="fa-solid fa-bars" />
+        <font-icon v-if="navShown" class="text-primary-color h-full" icon="fa-solid fa-xmark" />
       </button>
       <nav
         :class="classComputed"
