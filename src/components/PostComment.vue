@@ -1,0 +1,38 @@
+<template>
+  <div class="comment my-4">
+    <div class="flex items-center gap-4 mb-4">
+      <div>
+        <p>Perfil</p>
+      </div>
+      <div>
+        <h1 class="text-md text-primary-color">Autor</h1>
+        <p class="text-xs text-gray-600">Publicado el 17 de agosto
+          de 2022, a las 20:11</p>
+      </div>
+    </div>
+    <div class="text-sm">
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
+        tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
+      <p>
+        Probando otra imagen con un tamaño mas pequeño
+        <img
+          src="https://ecdn.teacherspayteachers.com/thumbitem/Examples-of-Big-and-Small-5033763-1573983223/original-5033763-1.jpg"
+          alt="image">
+      </p>
+    </div>
+    <div v-if="props.hasReplies" class="replies ml-8 mt-3">
+      <h2 class="text-lg">Respuestas:</h2>
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+
+const props = defineProps({
+  hasReplies: {
+    type: Boolean,
+    default: false,
+  }
+})
+</script>
