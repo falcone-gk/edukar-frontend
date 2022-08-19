@@ -1,5 +1,5 @@
 <template>
-  <div @click="router.push({name: 'post', params: {slug: 'slug-test'}})" class="flex rounded w-full py-2 bg-white border-[1px] border-gray-300 shadow-md cursor-pointer">
+  <div @click="router.push({name: 'post', params: {slug: 'slug-test'}})" class="flex rounded w-full py-2 bg-white border-[1px] border-gray-300 shadow-md cursor-pointer hover:bg-slate-50">
     <div class="px-4">
       <p>Perfil</p>
     </div>
