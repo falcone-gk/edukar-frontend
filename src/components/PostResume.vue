@@ -1,5 +1,5 @@
 <template>
-  <div class="flex rounded w-full py-2 bg-white border-[1px] border-gray-300 shadow-md">
+  <div @click="router.push({name: 'post', params: {slug: 'slug-test'}})" class="flex rounded w-full py-2 bg-white border-[1px] border-gray-300 shadow-md cursor-pointer">
     <div class="px-4">
       <p>Perfil</p>
     </div>
@@ -15,3 +15,9 @@
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { Router, useRouter } from 'vue-router';
+
+const router: Router = useRouter()
+</script>
