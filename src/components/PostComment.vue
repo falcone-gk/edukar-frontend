@@ -1,6 +1,6 @@
 <template>
-  <div class="comment my-4">
-    <div class="flex items-center gap-4 mb-4">
+  <div class="comment my-3">
+    <div class="flex items-center gap-4 mb-2">
       <div>
         <p>Perfil</p>
       </div>
