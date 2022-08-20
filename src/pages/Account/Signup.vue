@@ -18,7 +18,7 @@
         </div>
       </div>
       <form>
-        <div class="flex gap-4 mb-6">
+        <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="username">Nombre de usuario*:</label>
             <input class="form-control" name="username" id="username" type="text">
@@ -28,7 +28,7 @@
             <input class="form-control" name="email" id="email" type="email">
           </div>
         </div>
-        <div class="flex gap-4 mb-6">
+        <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="name">Nombre(s)*:</label>
             <input class="form-control" name="name" id="name" type="text">
@@ -38,7 +38,7 @@
             <input class="form-control" name="last-name" id="last-name" type="text">
           </div>
         </div>
-        <div class="flex gap-4 mb-6">
+        <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="password">Contraseña*:</label>
             <input class="form-control" name="password" id="password" type="password">
