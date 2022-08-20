@@ -9,9 +9,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /**Import icons */
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faComment } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faXmark)
+library.add(faBars, faXmark, faComment)
 
 const pinia = createPinia()
 const app = createApp(App)

@@ -10,7 +10,10 @@
       </div>
       <div class="hidden sm:flex justify-between items-center">
         <p class="text-xs">Último comentario de <span class="text-primary-color">Autor</span> - <span class="text-primary-color">Fecha de comentario</span></p>
-        <span>0</span>
+        <div>
+          <font-icon class="mr-2 text-slate-700" icon="fa-solid fa-comment" />
+          <span>0</span>
+        </div>
       </div>
     </div>
   </div>
