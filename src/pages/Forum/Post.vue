@@ -31,9 +31,9 @@
 
     <!--Comments section-->
     <div class="comment-list">
-      <h1 class="text-2xl">Comentarios:</h1>
+      <h1 class="text-2xl">Comentarios ({{ nComments }}) :</h1>
       <div class="list-comments flex flex-col gap-5">
-        <PostComment v-for="index in 3" :key="'comment-'+index" :hasReplies="true">
+        <PostComment v-for="index in nComments" :key="'comment-'+index" :isReply="true">
           <PostComment />
         </PostComment>
       </div>
@@ -43,4 +43,6 @@
 
 <script lang="ts" setup>
 import PostComment from '@/components/PostComment.vue'
+
+const nComments: number = 2
 </script>

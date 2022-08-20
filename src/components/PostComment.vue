@@ -13,14 +13,14 @@
     <div class="text-sm">
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
         tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
-      <p>
-        Probando otra imagen con un tamaño mas pequeño
-        <img
-          src="https://ecdn.teacherspayteachers.com/thumbitem/Examples-of-Big-and-Small-5033763-1573983223/original-5033763-1.jpg"
-          alt="image">
-      </p>
     </div>
-    <div v-if="props.hasReplies" class="replies ml-8 mt-3">
+    <div v-if="props.isReply" class="mt-2">
+      <button class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
+        <font-icon icon="fa-solid fa-reply" />
+        <span> Responder</span>
+      </button>
+    </div>
+    <div v-if="props.isReply" class="replies ml-8 mt-3">
       <h2 class="text-lg">Respuestas:</h2>
       <slot></slot>
     </div>
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 
 const props = defineProps({
-  hasReplies: {
+  isReply: {
     type: Boolean,
     default: false,
   }
