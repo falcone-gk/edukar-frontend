@@ -33,10 +33,16 @@
     <div class="comment-list">
       <h1 class="text-2xl">Comentarios ({{ nComments }}) :</h1>
       <div class="list-comments flex flex-col">
-        <PostComment v-for="index in nComments" :key="'comment-'+index" :isReply="true">
-          <PostComment v-for="subindex in nComments" :key="'reply-'+subindex" />
+        <PostComment v-for="index in nComments" :key="'comment-' + index" :isReply="true">
+          <PostComment v-for="subindex in nComments" :key="'reply-' + subindex" />
         </PostComment>
       </div>
+    </div>
+
+    <hr>
+    <!--Create new comment section-->
+    <div>
+      <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
     </div>
   </div>
 </template>
