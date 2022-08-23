@@ -43,12 +43,15 @@
     <!--Create new comment section-->
     <div>
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
+      <QuillEditor class="min-h-[300px]" v-model="editorData" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import PostComment from '@/components/PostComment.vue'
+import { ref } from 'vue';
 
 const nComments: number = 2
+const editorData = ref<string>('')
 </script>
