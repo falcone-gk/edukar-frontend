@@ -14,14 +14,20 @@
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
         tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
     </div>
-    <div v-if="props.isReply" class="mt-2">
+    <div v-if="props.isComment" class="mt-2">
       <button class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
       </button>
     </div>
-    <div v-if="props.isReply" class="replies ml-8 mt-3">
-      <h2 class="text-lg">Respuestas:</h2>
+
+    <div v-if="props.isComment" class="new-reply-form my-3">
+      <h2 class="mb-2">Responde al comentario:</h2>
+      <QuillEditor class="min-h-[300px]" />
+    </div>
+
+    <div v-if="props.isComment" class="replies ml-8">
+      <h2>Respuestas:</h2>
       <slot></slot>
     </div>
   </div>
@@ -30,9 +36,9 @@
 <script lang="ts" setup>
 
 const props = defineProps({
-  isReply: {
+  isComment: {
     type: Boolean,
-    default: false,
+    default: true,
   }
 })
 </script>
