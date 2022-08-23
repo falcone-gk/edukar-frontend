@@ -43,6 +43,17 @@ const routes: Array<RouteRecordRaw> = [
             },
         ]
     },
+    {
+        path: '/services',
+        component: () => import('@/layouts/Default.vue'),
+        children:[
+            {
+                path: '',
+                name: 'services',
+                component: () => import('@/pages/Services/Services.vue')
+            },
+        ]
+    },
 ]
 
 export default routes

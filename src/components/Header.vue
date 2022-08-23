@@ -23,7 +23,7 @@
             </li>
             <li
               class="flex w-full h-12 justify-center items-center text-gray-400 bg-transparent hover:text-gray-500 md:h-full md:w-24 [&>a]:w-full [&>a]:h-full [&>a]:grid [&>a]:place-items-center">
-              <router-link to="/">Servicios</router-link>
+              <router-link to="/services">Servicios</router-link>
             </li>
           </ul>
         </div>
