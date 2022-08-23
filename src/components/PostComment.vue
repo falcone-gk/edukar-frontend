@@ -14,16 +14,17 @@
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
         tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
     </div>
-    <div v-if="props.isComment" class="mt-2">
-      <button class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
+    <div v-if="props.isComment" class="my-2">
+      <button @click="isReplyActive = !isReplyActive" class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
       </button>
     </div>
 
-    <div v-if="props.isComment" class="new-reply-form my-3">
+    <div v-if="props.isComment && isReplyActive" class="new-reply-form my-3">
       <h2 class="mb-2">Responde al comentario:</h2>
-      <QuillEditor class="min-h-[300px]" />
+      <QuillEditor class="min-h-[300px] mb-2" />
+      <button class="btn-primary">Responder</button>
     </div>
 
     <div v-if="props.isComment" class="replies ml-8">
@@ -34,6 +35,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 
 const props = defineProps({
   isComment: {
@@ -41,4 +43,5 @@ const props = defineProps({
     default: true,
   }
 })
+const isReplyActive = ref<boolean>(false)
 </script>
