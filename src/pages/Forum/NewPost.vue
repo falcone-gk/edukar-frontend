@@ -15,9 +15,9 @@
         </div>
         <div class="mb-4">
           <label class="label-control" for="description">Descripción:</label>
-          <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="description" id="description" rows="10"></textarea>
+          <QuillEditor />
         </div>
-        <input class="btn-primary" type="submit" value="Publicar Post">
+        <input class="btn-primary mt-2" type="submit" value="Publicar Post">
       </form>
     </div>
   </div>

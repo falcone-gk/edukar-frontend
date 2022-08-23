@@ -43,8 +43,8 @@
     <!--Create new comment section-->
     <div>
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
-      <QuillEditor class="min-h-[300px] mb-2" v-model="editorData" />
-      <button class="btn-primary">Agregar comentario</button>
+      <QuillEditor v-model="editorData" />
+      <button class="btn-primary mt-2">Agregar comentario</button>
     </div>
   </div>
 </template>

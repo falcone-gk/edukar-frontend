@@ -23,8 +23,8 @@
 
     <div v-if="props.isComment && isReplyActive" class="new-reply-form my-3">
       <h2 class="mb-2">Responde al comentario:</h2>
-      <QuillEditor class="min-h-[300px] mb-2" />
-      <button class="btn-primary">Responder</button>
+      <QuillEditor />
+      <button class="btn-primary mt-2">Responder</button>
     </div>
 
     <div v-if="props.isComment" class="replies ml-8">
