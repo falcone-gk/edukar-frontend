@@ -12,8 +12,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /**Import icons */
-import { faBars, faXmark, faComment, faReply } from '@fortawesome/free-solid-svg-icons'
-library.add(faBars, faXmark, faComment, faReply)
+import { faBars, faXmark, faComment, faReply, faHome, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF, faTwitter, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons'
+library.add(
+    faBars, faXmark, faComment, faReply, faHome, faEnvelope, faPhone,
+    faFacebookF, faTwitter, faYoutube, faInstagram
+)
 
 /**Richt Text Editor global configuration */
 Quill.register('modules/blotFormatter', BlotFormatter)      // register module to resize image
