@@ -21,31 +21,31 @@
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="username">Nombre de usuario*:</label>
-            <input class="form-control" name="username" id="username" type="text">
+            <input class="form-control" name="username" id="username" type="text" required>
           </div>
           <div class="w-full">
             <label class="label-control" for="email">Email*:</label>
-            <input class="form-control" name="email" id="email" type="email">
+            <input class="form-control" name="email" id="email" type="email" required>
           </div>
         </div>
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="name">Nombre(s)*:</label>
-            <input class="form-control" name="name" id="name" type="text">
+            <input class="form-control" name="name" id="name" type="text" required>
           </div>
           <div class="w-full">
             <label class="label-control" for="last-name">Apellidos*:</label>
-            <input class="form-control" name="last-name" id="last-name" type="text">
+            <input class="form-control" name="last-name" id="last-name" type="text" required>
           </div>
         </div>
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="password">Contraseña*:</label>
-            <input class="form-control" name="password" id="password" type="password">
+            <input class="form-control" name="password" id="password" type="password" required>
           </div>
           <div class="w-full">
             <label class="label-control" for="confirm-password">Confirmar contraseña*:</label>
-            <input class="form-control" name="confirm-password" id="confirm-password" type="password">
+            <input class="form-control" name="confirm-password" id="confirm-password" type="password" required>
           </div>
         </div>
         <div class="mb-6 w-full">
