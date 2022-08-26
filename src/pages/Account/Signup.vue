@@ -17,7 +17,7 @@
           <p class="font-bold text-xs">Los campos con ' * ' son obligatorios</p>
         </div>
       </div>
-      <form>
+      <form :onsubmit="submitData">
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="username">Nombre de usuario*:</label>
@@ -49,15 +49,26 @@
           </div>
         </div>
         <div class="mb-6 w-full">
-          <label class="label-control" for="about-me">Sobre mi:</label>
-          <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="about-me" id="about-me" rows="10"></textarea>
+          <label class="label-control" for="about_me">Sobre mi:</label>
+          <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="about_me" id="about_me" rows="10"></textarea>
         </div>
         <div class="mb-6 w-full">
-          <label class="label-control" for="profile">Imagen de perfil:</label>
-          <input class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer" aria-describedby="profile_help" id="profile" type="file" accept="image/*">
+          <label class="label-control" for="picture">Imagen de perfil:</label>
+          <input class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer" id="picture" name="picture" type="file" accept="image/*">
         </div>
         <input class="w-full btn-primary" type="submit" value="Registrarse">
       </form>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { useAuthStore } from '../../stores/auth'
+
+const authStore = useAuthStore()
+const submitData = (e:any) => {
+  e.preventDefault()
+  const formData = new FormData(e.target)
+  authStore.signup(formData)
+}
+</script>
