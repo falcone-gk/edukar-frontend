@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
         ]
     },
     {
-        path: '/',
+        path: '/account',
         component: () => import('@/layouts/Default.vue'),
         children:[
             {
@@ -25,6 +25,16 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'signup',
                 name: 'signup',
                 component: () => import('@/pages/Account/Signup.vue')
+            },
+            {
+                path: 'after-signup',
+                name: 'afterSignup',
+                component: () => import('@/pages/Account/AfterSignup.vue')
+            },
+            {
+                path: 'activate/:uid/:token',
+                name: 'activate',
+                component: () => import('@/pages/Account/Activate.vue')
             },
         ]
     },
