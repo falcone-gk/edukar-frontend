@@ -13,3 +13,7 @@ export interface userRegisterData {
     profile: string,
     about_me: string
 }
+export interface userLoginData {
+    username: string,
+    password: string
+}
