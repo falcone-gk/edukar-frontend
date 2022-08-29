@@ -31,7 +31,9 @@ httpModule.interceptors.request.use(
 
 httpModule.interceptors.response.use(
   response => {
-    return response.data
+    return response
+    // Vscode marca error cuando se quiere tomar los datos del response
+    // return response.data
   },
   err => {
     const error: {statusCode: null | string, message: null | string} = {
