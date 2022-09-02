@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { userData } from '../types/authTypes'
+import { userData, userLoginData } from '../types/authTypes'
 import router from '../router'
 import httpModule from '../services/httpModule'
 
@@ -15,11 +15,11 @@ export const useAuthStore = defineStore('auth', {
         async signup(data: FormData) {
             try {
                 await httpModule.post('account/users/', data)
-                router.push('after-signup')
+                router.push({ name: 'after-signup' })
             }
             catch(error) {
                 console.log(error)
             }
-        }
+        },
     }
 })
