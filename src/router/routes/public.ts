@@ -36,6 +36,16 @@ const routes: Array<RouteRecordRaw> = [
                 name: 'activate',
                 component: () => import('@/pages/Account/Activate.vue')
             },
+            {
+                path: 'reset-password',
+                name: 'reset-password',
+                component: () => import('@/pages/Account/ResetPassword.vue')
+            },
+            {
+                path: 'after-reset-password',
+                name: 'after-reset-password',
+                component: () => import('@/pages/Account/AfterResetPassword.vue')
+            },
         ]
     },
     {
