@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { userData, userLoginData } from '../types/authTypes'
+import { userData } from '../types/authTypes'
 import router from '../router'
 import httpModule from '../services/httpModule'
 
@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('auth', {
             isAuthenticated: false,
             token: null,
             username: null,
+            email: 'example@example.com',   // Using this value just to render in view
         }
     },
     actions: {
