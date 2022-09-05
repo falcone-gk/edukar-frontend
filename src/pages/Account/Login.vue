@@ -41,13 +41,15 @@ const loginError = ref<boolean>(false)
 
 const onLogin = async (data: userLoginData) => {
   try {
-    const response = await httpModule.post('account/jwt/create/', data)
+    const response = await httpModule.post('account/token/create', data)
 
     loginError.value = false
+    console.log(response.data)
     // After success in login, user data is stored.
     authStore.isAuthenticated = true
     authStore.token = response.data.access
-    authStore.username = data.username
+    authStore.username = response.data.username
+    authStore.email = response.data.email
 
     // pushing to home view.
     router.push({ name: 'home' })
