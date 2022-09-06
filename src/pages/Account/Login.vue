@@ -50,6 +50,7 @@ const onLogin = async (data: userLoginData) => {
     authStore.token = response.data.access
     authStore.username = response.data.username
     authStore.email = response.data.email
+    authStore.picture = response.data.picture
 
     // pushing to home view.
     router.push({ name: 'home' })
