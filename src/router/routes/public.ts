@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: 'after-signup',
-                name: 'afterSignup',
+                name: 'after-signup',
                 component: () => import('@/pages/Account/AfterSignup.vue')
             },
             {
