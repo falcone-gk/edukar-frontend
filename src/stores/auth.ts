@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', {
             token: null,
             username: null,
             email: 'example@example.com',   // Using this value just to render in view
+            picture: '',
         }
     },
     actions: {

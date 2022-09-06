@@ -2,7 +2,8 @@ export interface userData {
     isAuthenticated: boolean,
     token: string | null,
     username: string | null,
-    email: string | null
+    email: string | null,
+    picture: string
 }
 export interface userRegisterData {
     username: string,
