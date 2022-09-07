@@ -44,7 +44,6 @@ const onLogin = async (data: userLoginData) => {
     const response = await httpModule.post('account/token/create', data)
 
     loginError.value = false
-    console.log(response.data)
     // After success in login, user data is stored.
     authStore.isAuthenticated = true
     authStore.token = response.data.access
