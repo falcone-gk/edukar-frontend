@@ -27,10 +27,32 @@
             </li>
           </ul>
         </div>
-        <div class="flex items-center gap-6">
+        <hr class="w-full md:hidden">
+        <div v-if="!authStore.isAuthenticated" class="flex items-center gap-6">
           <button @click="router.push({name: 'login'})" class="rounded border-2 border-primary-color hover:bg-indigo-50 whitespace-nowrap px-2 py-1">Iniciar
             Sesión</button>
           <button @click="router.push({name: 'signup'})" class="btn-primary">Registrarse</button>
+        </div>
+        <div v-else class="w-full relative px-4 md:w-auto md:px-0">
+          <div class="flex gap-2">
+            <button @click.prevent="toggleMenuAccount">
+              <img class="rounded-full h-[40px]" :src="authStore.picture" alt="picture">
+            </button>
+            <div class="flex flex-col md:hidden">
+              <span class="text-lg leading-none text-primary-color">{{ authStore.username }}</span>
+              <span class="text-sm text-gray-400">{{ authStore.email }}</span>
+            </div>
+          </div>
+          <div class="flex flex-col mt-2 gap-2 origin-top md:border md:border-primary-color rounded p-2 md:bg-white md:absolute md:whitespace-nowrap md:right-0" :class="classAccountMenu">
+            <ul class="leading-8">
+              <li class="px-2 hover:bg-primary-color hover:text-white">
+                <a class="" href="#">Cuenta</a>
+              </li>
+              <li class="px-2 hover:bg-primary-color hover:text-white">
+                <a href="#">Cerrar sesión</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
@@ -40,7 +62,11 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { Router, useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 
+const authStore = useAuthStore()
+
+// Navbar toggle workflow
 const navShown = ref<boolean>(false)
 const toggleMenu = () => {
   navShown.value = !navShown.value
@@ -48,6 +74,17 @@ const toggleMenu = () => {
 const classComputed = computed(() => ({
   'transform translate-y-full md:transform-none': navShown.value
 }))
+
+// Account Menu toggle workflow
+const menuAccountShown = ref<boolean>(false)
+const toggleMenuAccount = () => {
+  menuAccountShown.value = !menuAccountShown.value
+}
+const classAccountMenu = computed(() => ({
+  'md:block': menuAccountShown.value,
+  'md:hidden': !menuAccountShown.value
+}))
+
 
 const router: Router = useRouter()
 </script>
