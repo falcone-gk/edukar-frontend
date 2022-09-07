@@ -1,4 +1,12 @@
 <template>
+  <div class="bg-white shadow-md p-4 mb-4 border border-gray-300 rounded">
+    <h1 class="text-4xl text-primary-color mb-2">Foro Edukar</h1>
+    <p>
+      Este es el foro EDUKAR, donde podrán compartir y ayudar a otros estudiantes con ejercicios, dudas, consultas y
+      resoluciones sobre problemas matemáticos y de ciencias.
+    </p>
+    <span class="block text-primary-color mt-2">Regístrate y se parte de esta comunidad estudiantil!!!</span>
+  </div>
   <div class="flex flex-col-reverse md:flex-row gap-4">
     <div class="flex flex-col gap-2 basis-3/4">
       <h1 class="text-3xl">Todos</h1>
