@@ -60,7 +60,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'new-post',
                 name: 'new-post',
-                component: () => import('@/pages/Forum/NewPost.vue')
+                component: () => import('@/pages/Forum/NewPost.vue'),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 path: 'post/:slug',
