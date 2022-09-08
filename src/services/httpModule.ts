@@ -20,7 +20,7 @@ httpModule.interceptors.request.use(
     const authStore = useAuthStore()
     const token: string | null = authStore.token
     if (config.headers && token) {
-      config.headers.authorization = 'JWT ' + token;
+      config.headers['Authorization'] = 'JWT ' + token;
     }
     return config
   },
