@@ -1,8 +1,9 @@
 export interface userData {
     isAuthenticated: boolean,
-    token: string | null,
-    username: string | null,
-    email: string | null,
+    access: string,
+    refresh: string
+    username: string,
+    email: string,
     picture: string
 }
 export interface userRegisterData {
