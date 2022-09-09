@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '../stores/auth'
 
 // Algun dia se solucionara xd
@@ -18,7 +19,7 @@ httpModule.interceptors.request.use(
   config => {
     //let state = store.getState() // para obtener el store de pinia y jalar auth
     const authStore = useAuthStore()
-    const token: string | null = authStore.token
+    const token: string | null = authStore.access
     if (config.headers && token) {
       config.headers['Authorization'] = 'JWT ' + token;
     }
@@ -35,17 +36,29 @@ httpModule.interceptors.response.use(
     // Vscode marca error cuando se quiere tomar los datos del response
     // return response.data
   },
-  err => {
-    const error: {statusCode: null | string, message: null | string} = {
-      statusCode: null,
-      message: null
+  async (err) => {
+    const originalConfig = err.config;
+    if (originalConfig.url !== "/account/token/create" && err.response) {
+      // Access Token was expired
+      if (err.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+        const authStore = useAuthStore()
+        try {
+          // Send refresh token to get new access token
+          const response = await httpModule.post("/account/token/refresh/", {
+            refresh: authStore.refresh,
+          });
+          // Update access token
+          const { access } = response.data;
+          authStore.updateAccessToken(access)
+          return httpModule(originalConfig);
+        } catch (_error) {
+          authStore.logout()
+          return Promise.reject(_error);
+        }
+      }
     }
-    if (!err.response) {
-      error.message = 'No se pudo conectar con el servidor'
-    } else {
-      error.message = err.response.data.message || 'Oops!, Algo salió mal'
-    }
-    return Promise.reject(error)
+    return Promise.reject(err);
   }
 )
 
