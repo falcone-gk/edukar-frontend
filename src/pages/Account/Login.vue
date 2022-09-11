@@ -26,7 +26,7 @@
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
-import { userLoginData } from '../../types/authTypes';
+import { userData, userLoginData } from '../../types/authTypes';
 import httpModule from '../../services/httpModule'
 
 const authStore = useAuthStore()
@@ -45,11 +45,7 @@ const onLogin = async (data: userLoginData) => {
 
     loginError.value = false
     // After success in login, user data is stored.
-    authStore.isAuthenticated = true
-    authStore.token = response.data.access
-    authStore.username = response.data.username
-    authStore.email = response.data.email
-    authStore.picture = response.data.picture
+    authStore.saveUserData(response.data)
 
     // pushing to home view.
     router.push({ name: 'home' })
