@@ -36,7 +36,7 @@
         <div v-else class="w-full relative px-4 md:w-auto md:px-0">
           <div class="flex gap-2">
             <button @click.prevent="toggleMenuAccount">
-              <img class="rounded-full h-[40px]" :src="authStore.picture" alt="picture">
+              <img class="rounded-full h-[40px] w-[40px] max-w-none" :src="authStore.picture" alt="picture">
             </button>
             <div class="flex flex-col md:hidden">
               <span class="text-lg leading-none text-primary-color">{{ authStore.username }}</span>
