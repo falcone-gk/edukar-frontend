@@ -10,7 +10,13 @@
   <div class="flex flex-col-reverse md:flex-row gap-4">
     <div class="flex flex-col gap-2 basis-3/4">
       <h1 class="text-3xl">Todos</h1>
-      <PostResume v-for="i in 8" :key="'post-'+i" />
+      <PostResume v-for="post in postToShow"
+      :key="post.slug"
+      :title="post.title"
+      :slug="post.slug"
+      :author="post.author"
+      :picture="post.picture"
+      :time_difference="post.time_difference" />
     </div>
     <div class="basis-1/4">
       <div class="mb-6">
@@ -19,9 +25,9 @@
       <form class="rounded bg-white border-[1px] border-gray-300 shadow-md px-4 py-2">
         <h1 class="mb-2 font-bold">Cursos</h1>
         <div class="flex flex-col gap-1">
-          <div v-for="(course, index) in courses" :key="index">
-            <input class="mr-4" type="radio" :name="course" :id="course" :value="index" v-model="checked">
-            <label :for="course">{{ course }}</label>
+          <div v-for="course in courses" :key="'sub-' + course.id.toString()">
+            <input class="mr-4" type="radio" :name="course.name" :id="course.name" :value="course.id" v-model="checked">
+            <label :for="course.name">{{ course.name }}</label>
           </div>
           <div class="text-center mt-4">
             <input class="btn-primary" type="submit" value="Actualizar">
@@ -34,11 +40,35 @@
 
 <script lang="ts" setup>
 import PostResume from '@/components/PostResume.vue'
-import { ref } from 'vue';
+import { ref, reactive, onBeforeMount } from 'vue';
 import { Router, useRouter } from 'vue-router';
+import httpModule from '../../services/httpModule';
+import { postInfoResume, subsectionType } from '../../types/forumTypes'
+import { useForumStore } from '../../stores/forum';
 
 const router: Router = useRouter()
 
 const checked = ref<number>(0)
-const courses: string[] = ['Todos', 'Aritmética', 'Geometría', 'Trigonometría', 'Raz. Mat.']
+const courses = reactive<subsectionType[]>([{id: 0, name: 'Todos'}])
+const postToShow = reactive<postInfoResume[]>([])
+const forumStore = useForumStore()
+
+const getPosts = async () => {
+  try {
+    const response = await httpModule.get('forum/sections/?course=0')
+    postToShow.push(...response.data)
+  } catch(error) {
+    console.log(error)
+  }
+}
+onBeforeMount(async () => {
+  getPosts()
+
+  // Getting all subsections
+  if (forumStore.subsections.length == 0) {
+    await forumStore.getSubsections()
+  }
+  courses.push(...forumStore.subsections)
+  console.log(courses)
+})
 </script>
