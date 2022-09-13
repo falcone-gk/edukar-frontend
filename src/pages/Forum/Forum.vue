@@ -15,7 +15,7 @@
       :title="post.title"
       :slug="post.slug"
       :author="post.author"
-      :picture="post.picture"
+      :subsection="post.subsection"
       :time_difference="post.time_difference" />
     </div>
     <div class="basis-1/4">
@@ -69,6 +69,5 @@ onBeforeMount(async () => {
     await forumStore.getSubsections()
   }
   courses.push(...forumStore.subsections)
-  console.log(courses)
 })
 </script>
