@@ -9,7 +9,7 @@
   </div>
   <div class="flex flex-col-reverse md:flex-row gap-4">
     <div class="flex flex-col gap-2 basis-3/4">
-      <h1 class="text-3xl">Todos</h1>
+      <h1 class="text-3xl">{{ currentCourse }}</h1>
       <PostResume v-for="post in postToShow"
       :key="post.slug"
       :title="post.title"
@@ -30,7 +30,7 @@
             <label :for="course.name">{{ course.name }}</label>
           </div>
           <div class="text-center mt-4">
-            <input class="btn-primary" type="submit" value="Actualizar">
+            <input @click.prevent="updatePosts" class="btn-primary" type="submit" value="Actualizar">
           </div>
         </div>
       </form>
@@ -50,13 +50,14 @@ const router: Router = useRouter()
 
 const checked = ref<number>(0)
 const courses = reactive<subsectionType[]>([{id: 0, name: 'Todos'}])
-const postToShow = reactive<postInfoResume[]>([])
+const currentCourse = ref<string>(courses[checked.value].name)
+const postToShow = ref<postInfoResume[]>([])
 const forumStore = useForumStore()
 
 const getPosts = async () => {
   try {
     const response = await httpModule.get('forum/sections/?course=0')
-    postToShow.push(...response.data)
+    postToShow.value.push(...response.data)
   } catch(error) {
     console.log(error)
   }
@@ -70,4 +71,11 @@ onBeforeMount(async () => {
   }
   courses.push(...forumStore.subsections)
 })
+
+const updatePosts = async () => {
+  const url: string = 'forum/sections/?course=' + checked.value.toString()
+  const response = await httpModule.get(url)
+  postToShow.value = response.data
+  currentCourse.value = courses[checked.value].name
+}
 </script>
