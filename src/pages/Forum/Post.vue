@@ -1,30 +1,16 @@
 <template>
   <div class="rounded border-t border-gray-100 max-w-4xl mx-auto p-4 shadow-md">
     <div id="post">
-      <div class="flex items-center gap-4 mb-6">
-        <div>
-          <p>Perfil</p>
+      <div class="flex items-center mb-6">
+        <div class="pr-2">
+          <img class="rounded-full w-[48px] h-[48px] max-w-none" :src="post.author.picture" alt="picture">
         </div>
         <div>
-          <h1 class="text-2xl">Título del post</h1>
-          <p class="text-xs text-gray-600">Publicado por <span class="text-primary-color">Autor</span> (17 de agosto de
-            2022, a las 20:11)</p>
+          <h1 class="text-2xl">{{ post.title }}</h1>
+          <p class="text-xs text-gray-600">Publicado por <span class="text-primary-color">{{ post.author.username }}</span> ({{ translateDate(post.date) }})</p>
         </div>
       </div>
-      <div class="text-sm">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
-          tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
-        <p>Aca va una imagen
-          <img src="https://img.freepik.com/free-vector/colorful-palm-silhouettes-background_23-2148541792.jpg?w=2000"
-            alt="image">
-        </p>
-        <p>
-          Probando otra imagen con un tamaño mas pequeño
-          <img
-            src="https://ecdn.teacherspayteachers.com/thumbitem/Examples-of-Big-and-Small-5033763-1573983223/original-5033763-1.jpg"
-            alt="image">
-        </p>
-      </div>
+      <div class="text-sm" v-html="post.body"></div>
     </div>
 
     <hr class="my-4">
@@ -51,8 +37,54 @@
 
 <script lang="ts" setup>
 import PostComment from '@/components/PostComment.vue'
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+import httpModule from '../../services/httpModule';
+
+const router: RouteLocationNormalizedLoaded = useRoute()
+const slugTitle = router.params.slug
+const post = ref({
+  subsection: '',
+  title: '',
+  author: {username: '', picture: ''},
+  body: '',
+  date: ''
+})
+
+const translateDate = (date: string): string => {
+  if (!date) {
+    return ''
+  }
+
+  type monthType = 'January'|'February'|'March'|'April'|'May'|'June'|'July'|'August'|'September'|'October'|'November'|'December'
+  
+  const monthDict: {[key in monthType]: string} = {
+    'January': 'enero',
+    'February': 'febrero',
+    'March': 'marzo',
+    'April': 'abril',
+    'May': 'mayo',
+    'June': 'Junio',
+    'July': 'julio',
+    'August': 'Agosto',
+    'September': 'setiembre',
+    'October': 'octubre',
+    'November': 'noviembre',
+    'December': 'diciembre'
+  }
+  const rExp: RegExp = /de (\w*) del/
+  const matches: RegExpExecArray = rExp.exec(date) as RegExpExecArray
+  const month: monthType = matches[1] as monthType
+  const newDate = date.replace(month, monthDict[month])
+
+  return newDate
+}
 
 const nComments: number = 2
 const editorData = ref<string>('')
+
+onBeforeMount(async () => {
+  const response = await httpModule.get('forum/posts/' + slugTitle)
+  post.value = response.data
+})
 </script>
