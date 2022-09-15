@@ -1,5 +1,5 @@
 <template>
-  <div @click="router.push({name: 'post', params: {slug: 'slug-test'}})"
+  <div @click="router.push({name: 'post', params: {slug: props.slug}})"
     class="flex items-center rounded w-full py-2 bg-white border-[1px] border-gray-300 shadow-md cursor-pointer hover:bg-slate-50">
     <div class="px-2">
       <img class="rounded-full w-[48px] h-[48px] max-w-none" :src="props.author.picture" alt="picture">
