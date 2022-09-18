@@ -10,13 +10,7 @@
   <div class="flex flex-col-reverse md:flex-row gap-4">
     <div class="flex flex-col gap-2 basis-3/4">
       <h1 class="text-3xl">{{ currentCourse }}</h1>
-      <PostResume v-for="post in postToShow"
-      :key="post.slug"
-      :title="post.title"
-      :slug="post.slug"
-      :author="post.author"
-      :subsection="post.subsection"
-      :time_difference="post.time_difference" />
+      <PostResume v-for="post in postToShow" :Args="{props: post}" />
     </div>
     <div class="basis-1/4">
       <div class="mb-6">
