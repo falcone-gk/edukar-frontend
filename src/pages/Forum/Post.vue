@@ -19,8 +19,14 @@
     <div class="comment-list">
       <h1 class="text-2xl">Comentarios ({{ nComments }}) :</h1>
       <div class="list-comments flex flex-col">
-        <PostComment v-for="index in nComments" :key="'comment-' + index">
-          <PostComment v-for="subindex in nComments" :key="'reply-' + subindex" :isComment="false"/>
+        <PostComment v-for="comment in comments"
+        :key="'comment-' + comment.id.toString()"
+        :isComment="true"
+        :Args="{props: comment}" >
+          <PostComment v-for="(reply, index) in comment.replies"
+          :key="'reply-' + index"
+          :isComment="false"
+          :Args="reply" />
         </PostComment>
       </div>
     </div>
@@ -29,8 +35,8 @@
     <!--Create new comment section-->
     <div>
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
-      <QuillEditor v-model="editorData" />
-      <button class="btn-primary mt-2">Agregar comentario</button>
+      <QuillEditor v-model:content="editorData" contentType="html" />
+      <button @click.prevent="sendComment" class="btn-primary mt-2">Agregar comentario</button>
     </div>
   </div>
 </template>
@@ -41,23 +47,40 @@ import { ref, reactive, onBeforeMount } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import httpModule from '../../services/httpModule';
 import translateDateMonth from '../../services/translate';
+import { postStructure, commentStructure } from '../../types/forumTypes';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const slugTitle = router.params.slug
-const post = ref({
+const postId = ref<number>()
+const post = reactive<postStructure>({
   subsection: '',
   title: '',
   author: {username: '', picture: ''},
   body: '',
   date: ''
 })
+const comments = ref<commentStructure[]>([])
 
 const nComments: number = 2
 const editorData = ref<string>('')
 
 onBeforeMount(async () => {
   const response = await httpModule.get('forum/posts/' + slugTitle)
-  post.value = response.data
-  console.log(post.value)
+
+  // Store response values in post state values
+  Object.keys(post).forEach((k: string) => {
+    post[k as keyof postStructure] = response.data[k]
+  })
+  postId.value = response.data.id
+  comments.value = response.data.comments
 })
+
+const sendComment = async () => {
+  const commentData = {
+    post: postId.value,
+    body: editorData.value
+  }
+  const response = await httpModule.post('forum/comments/', commentData)
+  comments.value = response.data.comments
+}
 </script>
