@@ -1,19 +1,15 @@
 <template>
   <div class="comment my-3">
-    <div class="flex items-center gap-4 mb-2">
+    <div class="flex items-center gap-4 mb-6">
       <div>
-        <p>Perfil</p>
+        <img class="rounded-full w-[48px] h-[48px] max-w-none" :src="Args.props.author.picture" alt="picture">
       </div>
       <div>
-        <h1 class="text-md text-primary-color">Autor</h1>
-        <p class="text-xs text-gray-600">Publicado el 17 de agosto
-          de 2022, a las 20:11</p>
+        <h1 class="text-md text-primary-color">{{ Args.props.author.username }}</h1>
+        <p class="text-xs text-gray-600">Publicado el <span>{{ Args.props.date }}</span> </p>
       </div>
     </div>
-    <div class="text-sm">
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore consectetur dolor laudantium nulla amet
-        tempora nostrum doloribus qui sapiente, earum quaerat, ratione sunt commodi at!</p>
-    </div>
+    <div class="text-sm" v-html="Args.props.body"></div>
     <div v-if="props.isComment" class="my-2">
       <button @click="isReplyActive = !isReplyActive" class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
@@ -27,7 +23,7 @@
       <button class="btn-primary mt-2">Responder</button>
     </div>
 
-    <div v-if="props.isComment" class="replies ml-8">
+    <div v-if="slots.default?.length" class="replies ml-8">
       <h2>Respuestas:</h2>
       <slot></slot>
     </div>
@@ -35,13 +31,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, useSlots } from 'vue'
+import { commentStructure } from '../types/forumTypes';
 
-const props = defineProps({
-  isComment: {
-    type: Boolean,
-    default: true,
-  }
-})
+interface Props {
+  Args: {props: commentStructure},
+  isComment: Boolean
+}
+
+const slots = useSlots()
+const props = withDefaults(defineProps<Props>(), {});
+
+// value used to toggle reply to comment box
 const isReplyActive = ref<boolean>(false)
 </script>
