@@ -17,7 +17,7 @@
 
     <!--Comments section-->
     <div class="comment-list">
-      <h1 class="text-2xl">Comentarios ({{ nComments }}) :</h1>
+      <h1 class="text-2xl">Comentarios ({{ comments.length }}) :</h1>
       <div class="list-comments flex flex-col">
         <PostComment v-for="comment in comments"
         :key="'comment-' + comment.id.toString()"
@@ -35,7 +35,7 @@
     <!--Create new comment section-->
     <div>
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
-      <QuillEditor v-model:content="editorData" contentType="html" />
+      <QuillEditor v-model:content="commentForm.body" contentType="html" />
       <button @click.prevent="sendComment" class="btn-primary mt-2">Agregar comentario</button>
     </div>
   </div>
@@ -51,7 +51,6 @@ import { postStructure, commentStructure } from '../../types/forumTypes';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const slugTitle = router.params.slug
-const postId = ref<number>()
 const post = reactive<postStructure>({
   subsection: '',
   title: '',
@@ -61,8 +60,10 @@ const post = reactive<postStructure>({
 })
 const comments = ref<commentStructure[]>([])
 
-const nComments: number = 2
-const editorData = ref<string>('')
+const commentForm = reactive({
+  body: '',
+  post: null
+})
 
 onBeforeMount(async () => {
   const response = await httpModule.get('forum/posts/' + slugTitle)
@@ -71,16 +72,13 @@ onBeforeMount(async () => {
   Object.keys(post).forEach((k: string) => {
     post[k as keyof postStructure] = response.data[k]
   })
-  postId.value = response.data.id
+  commentForm.post = response.data.id
   comments.value = response.data.comments
 })
 
 const sendComment = async () => {
-  const commentData = {
-    post: postId.value,
-    body: editorData.value
-  }
-  const response = await httpModule.post('forum/comments/', commentData)
-  comments.value = response.data.comments
+  const response = await httpModule.post('forum/comments/', commentForm)
+  comments.value = response.data
+  commentForm.body = ''
 }
 </script>
