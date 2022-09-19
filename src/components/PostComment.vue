@@ -1,7 +1,7 @@
 <template>
   <div class="comment my-3">
-    <div class="flex items-center gap-4 mb-6">
-      <div>
+    <div class="flex items-center mb-6">
+      <div class="pr-2">
         <img class="rounded-full w-[48px] h-[48px] max-w-none" :src="Args.props.author.picture" alt="picture">
       </div>
       <div>
