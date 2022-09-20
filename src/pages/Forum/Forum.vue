@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import PostResume from '@/components/PostResume.vue'
+import PostResume from '@/components/PostComponents/PostResume.vue'
 import { ref, reactive, onBeforeMount } from 'vue';
 import { Router, useRouter } from 'vue-router';
 import httpModule from '../../services/httpModule';
