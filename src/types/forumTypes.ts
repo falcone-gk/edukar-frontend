@@ -15,7 +15,8 @@ interface postInfo {
 }
 
 export type postStructure = baseContentStructure & postInfo
-export type commentStructure = baseContentStructure & {id: number, replies: baseContentStructure[]}
+export type replyStructure = baseContentStructure & {id: number}
+export type commentStructure = baseContentStructure & {id: number, replies: replyStructure[]}
 
 export interface postInfoResume {
     title: string,
