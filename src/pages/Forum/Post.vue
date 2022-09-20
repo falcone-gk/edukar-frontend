@@ -22,12 +22,8 @@
         <PostComment v-for="comment in comments"
         :key="'comment-' + comment.id.toString()"
         :isComment="true"
-        :Args="{props: comment}" >
-          <PostComment v-for="(reply, index) in comment.replies"
-          :key="'reply-' + index"
-          :isComment="false"
-          :Args="reply" />
-        </PostComment>
+        :postId="postId"
+        :Args="{props: comment}" />
       </div>
     </div>
 
@@ -42,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import PostComment from '@/components/PostComment.vue'
+import PostComment from '@/components/PostComponents/PostComment.vue'
 import { ref, reactive, onBeforeMount } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import httpModule from '../../services/httpModule';
@@ -51,6 +47,7 @@ import { postStructure, commentStructure } from '../../types/forumTypes';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const slugTitle = router.params.slug
+const postId = ref(0)
 const post = reactive<postStructure>({
   subsection: '',
   title: '',
@@ -62,7 +59,7 @@ const comments = ref<commentStructure[]>([])
 
 const commentForm = reactive({
   body: '',
-  post: null
+  post: postId
 })
 
 onBeforeMount(async () => {
@@ -72,8 +69,9 @@ onBeforeMount(async () => {
   Object.keys(post).forEach((k: string) => {
     post[k as keyof postStructure] = response.data[k]
   })
-  commentForm.post = response.data.id
+  postId.value = response.data.id
   comments.value = response.data.comments
+  console.log(response.data)
 })
 
 const sendComment = async () => {
