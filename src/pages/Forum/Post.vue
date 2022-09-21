@@ -23,7 +23,8 @@
         :key="'comment-' + comment.id.toString()"
         :isComment="true"
         :postId="postId"
-        :Args="{props: comment}" />
+        :Args="{props: comment}"
+        @updateComments="updateCommentsPost" />
       </div>
     </div>
 
@@ -80,5 +81,9 @@ const sendComment = async () => {
   // Clean text used in vue-quill editor
   editor.value.setText('')
   commentForm.body = ''
+}
+
+const updateCommentsPost = (updatedComments: commentStructure[]) => {
+  comments.value = updatedComments
 }
 </script>

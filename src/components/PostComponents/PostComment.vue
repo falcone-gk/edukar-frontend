@@ -19,7 +19,7 @@
 
     <div v-if="isReplyActive" class="new-reply-form my-3">
       <h2 class="mb-2">Responde al comentario:</h2>
-      <QuillEditor v-model:content="replyForm.body" contentType="html" />
+      <QuillEditor ref="editor" v-model:content="replyForm.body" contentType="html" />
       <button @click.prevent="replyComment" class="btn-primary mt-2">Responder</button>
     </div>
 
@@ -43,7 +43,11 @@ interface Props {
   postId?: number,
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {})
+const emit = defineEmits<{
+  (e: 'updateComments', updatedArray: commentStructure[]): void
+}>()
+const editor = ref<any>(null)
 
 // value used to toggle reply to comment box
 const isReplyActive = ref<boolean>(false)
@@ -55,6 +59,9 @@ const replyForm = reactive({
 })
 const replyComment = async () => {
   const response = await httpModule.post('forum/replies/', replyForm)
-  console.log(response.data)
+  emit('updateComments', response.data)
+  isReplyActive.value = false
+  editor.value.setText('')
+  replyForm.body = ''
 }
 </script>
