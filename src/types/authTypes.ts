@@ -1,5 +1,5 @@
 export interface userData {
-    isAuthenticated: boolean,
+    isAuthenticated?: boolean,
     access: string,
     refresh: string
     username: string,
