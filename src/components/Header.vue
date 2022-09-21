@@ -49,7 +49,7 @@
                 <a class="" href="#">Cuenta</a>
               </li>
               <li class="px-2 hover:bg-primary-color hover:text-white">
-                <a href="#">Cerrar sesión</a>
+                <button @click.prevent="onLogout">Cerrar sesión</button>
               </li>
             </ul>
           </div>
@@ -65,6 +65,7 @@ import { Router, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore()
+const router: Router = useRouter()
 
 // Navbar toggle workflow
 const navShown = ref<boolean>(false)
@@ -85,6 +86,9 @@ const classAccountMenu = computed(() => ({
   'md:hidden': !menuAccountShown.value
 }))
 
+const onLogout = () => {
+  authStore.logout()
+  router.push({name: 'login'})
+}
 
-const router: Router = useRouter()
 </script>
