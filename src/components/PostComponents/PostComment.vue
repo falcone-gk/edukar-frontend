@@ -11,7 +11,7 @@
     </div>
     <div class="text-sm" v-html="Args.props.body"></div>
     <div class="my-2">
-      <button @click="isReplyActive = !isReplyActive" class="text-xs text-slate-700 rounded p-1 hover:bg-indigo-100">
+      <button @click="isReplyActive = !isReplyActive" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
       </button>
