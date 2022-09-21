@@ -57,8 +57,8 @@ const getPosts = async () => {
   }
 }
 onBeforeMount(async () => {
-  getPosts()
-
+  await getPosts()
+  
   // Getting all subsections
   if (forumStore.subsections.length == 0) {
     await forumStore.getSubsections()
