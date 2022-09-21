@@ -36,13 +36,11 @@ export const useAuthStore = defineStore('auth', {
         async saveUserData(data: userData) {
             this.$patch(data)
             this.isAuthenticated = true
-            Object.keys(data).forEach((key: string) => {
-                localStorage.setItem(key, data[key as keyof userDataStorage])
-            });
+            localStorage.setItem('userData', JSON.stringify(this.$state))
         },
         async updateAccessToken(token: string) {
             this.access = token
-            localStorage.setItem('access', token)
+            localStorage.setItem('userData', JSON.stringify(this.$state))
         },
         async logout() {
             this.$reset()
