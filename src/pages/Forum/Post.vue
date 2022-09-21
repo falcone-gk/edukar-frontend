@@ -17,7 +17,7 @@
 
     <!--Comments section-->
     <div class="comment-list">
-      <h1 class="text-2xl">Comentarios ({{ comments.length }}) :</h1>
+      <h1 class="text-2xl mb-2">Comentarios ({{ comments.length }}) :</h1>
       <div class="list-comments flex flex-col">
         <PostComment v-for="comment in comments"
         :key="'comment-' + comment.id.toString()"
@@ -31,7 +31,7 @@
     <!--Create new comment section-->
     <div>
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
-      <QuillEditor v-model:content="commentForm.body" contentType="html" />
+      <QuillEditor ref="editor" v-model:content="commentForm.body" contentType="html" />
       <button @click.prevent="sendComment" class="btn-primary mt-2">Agregar comentario</button>
     </div>
   </div>
@@ -47,6 +47,7 @@ import { postStructure, commentStructure } from '../../types/forumTypes';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const slugTitle = router.params.slug
+const editor = ref<any>(null)
 const postId = ref(0)
 const post = reactive<postStructure>({
   subsection: '',
@@ -71,12 +72,13 @@ onBeforeMount(async () => {
   })
   postId.value = response.data.id
   comments.value = response.data.comments
-  console.log(response.data)
 })
 
 const sendComment = async () => {
   const response = await httpModule.post('forum/comments/', commentForm)
   comments.value = response.data
+  // Clean text used in vue-quill editor
+  editor.value.setText('')
   commentForm.body = ''
 }
 </script>
