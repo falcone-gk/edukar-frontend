@@ -30,7 +30,7 @@
 
     <hr>
     <!--Create new comment section-->
-    <div>
+    <div v-if="authStore.isAuthenticated">
       <h1 class="my-4 text-2xl">Nuevo Comentario</h1>
       <QuillEditor ref="editor" v-model:content="commentForm.body" contentType="html" />
       <button @click.prevent="sendComment" class="btn-primary mt-2">Agregar comentario</button>
@@ -44,9 +44,12 @@ import { ref, reactive, onBeforeMount } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import httpModule from '../../services/httpModule';
 import translateDateMonth from '../../services/translate';
+import { useAuthStore } from '../../stores/auth';
 import { postStructure, commentStructure } from '../../types/forumTypes';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
+const authStore = useAuthStore()
+
 const slugTitle = router.params.slug
 const editor = ref<any>(null)
 const postId = ref(0)
