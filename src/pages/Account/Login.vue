@@ -1,4 +1,9 @@
 <template>
+  <ModalDialog
+  :show="modalData.showModal"
+  :title="modalData.title"
+  :message="modalData.message"
+  @closeModal="() => {modalData.showModal = false}" />
   <div class="grid place-items-center">
     <div class="w-[350px] p-4 border-t border-t-gray-100 shadow-md">
       <div class="mb-4 w-full">
@@ -13,7 +18,6 @@
           <label class="label-control" for="password">Contraseña</label>
           <input id="password" class="form-control" type="password" name="password" v-model="loginForm.password">
         </div>
-        <p v-if="loginError" class="text-xs text-red-600 mb-3">Nombre o contraseña incorrectos.</p>
         <input class="w-full btn-primary" type="submit" value="Iniciar sesión"
           @click.prevent="onLogin(loginForm)">
       </form>
@@ -23,10 +27,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
-import { userData, userLoginData } from '../../types/authTypes';
+import { userLoginData } from '../../types/authTypes';
+import ModalDialog from '@/components/ModalDialog.vue';
 import httpModule from '../../services/httpModule'
 
 const authStore = useAuthStore()
@@ -37,20 +42,25 @@ const loginForm = reactive<userLoginData>({
   password: ''
 })
 
-const loginError = ref<boolean>(false)
+const modalData = reactive({
+  showModal: false,
+  title: '',
+  message: ''
+})
 
 const onLogin = async (data: userLoginData) => {
   try {
     const response = await httpModule.post('account/token/create', data)
 
-    loginError.value = false
     // After success in login, user data is stored.
     authStore.saveUserData(response.data)
 
     // pushing to home view.
     router.push({ name: 'home' })
   } catch (error) {
-    loginError.value = true
+    modalData.showModal = true
+    modalData.title = 'Credenciales incorrectas'
+    modalData.message = 'El nombre de usuario o contraseña son incorrectos!'
   }
 }
 </script>
