@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
             access: '',
             refresh: '',
             username: '',
-            email: 'example@example.com',   // Using this value just to render in view
+            email: '',   // Using this value just to render in view
             picture: '',
         }
     },
