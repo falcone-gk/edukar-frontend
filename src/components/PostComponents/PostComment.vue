@@ -1,4 +1,9 @@
 <template>
+  <ModalDialog
+  :show="modalData.showModal"
+  :title="modalData.title"
+  :message="modalData.message"
+  @closeModal="() => {modalData.showModal = false}" />
   <div class="comment my-3">
     <div class="flex items-center mb-4">
       <div class="pr-2">
@@ -11,7 +16,7 @@
     </div>
     <div class="text-sm" v-html="Args.props.body"></div>
     <div class="my-2">
-      <button @click="isReplyActive = !isReplyActive" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
+      <button @click="toggleAnswer" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
       </button>
@@ -36,6 +41,8 @@
 import { ref, reactive } from 'vue'
 import httpModule from '../../services/httpModule';
 import PostReply from '@/components/PostComponents/PostReply.vue';
+import ModalDialog from '@/components/ModalDialog.vue';
+import { useAuthStore } from '../../stores/auth';
 import { commentStructure } from '../../types/forumTypes';
 
 interface Props {
@@ -47,10 +54,25 @@ const props = withDefaults(defineProps<Props>(), {})
 const emit = defineEmits<{
   (e: 'updateComments', updatedArray: commentStructure[]): void
 }>()
+const authStore = useAuthStore()
 const editor = ref<any>(null)
 
 // value used to toggle reply to comment box
 const isReplyActive = ref<boolean>(false)
+const modalData = reactive({
+  showModal: false,
+  title: '',
+  message: ''
+})
+const toggleAnswer = () => {
+  if (authStore.isAuthenticated) {
+    isReplyActive.value = !isReplyActive.value
+  } else {
+    modalData.showModal = true
+    modalData.title = 'Usuario no autorizado'
+    modalData.message = 'Solo pueden responden a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.'
+  }
+}
 
 const replyForm = reactive({
   post: props.postId,
