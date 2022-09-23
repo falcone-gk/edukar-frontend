@@ -21,7 +21,6 @@
       <div class="list-comments flex flex-col">
         <PostComment v-for="comment in comments"
         :key="'comment-' + comment.id.toString()"
-        :isComment="true"
         :postId="postId"
         :Args="{props: comment}"
         @updateComments="updateCommentsPost" />
