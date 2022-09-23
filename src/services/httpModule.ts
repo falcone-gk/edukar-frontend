@@ -38,14 +38,14 @@ httpModule.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    if (originalConfig.url !== "/account/token/create" && err.response) {
+    if (originalConfig.url !== "account/token/create" && err.response) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         const authStore = useAuthStore()
         try {
           // Send refresh token to get new access token
-          const response = await httpModule.post("/account/token/refresh/", {
+          const response = await httpModule.post("account/token/refresh/", {
             refresh: authStore.refresh,
           });
           // Update access token
