@@ -17,9 +17,9 @@ const title: string = 'Verificación de email'
 const imgSrc: string = 'message.png'
 const authStore = useAuthStore()
 
-const resendEmailVerification = () => {
+const resendEmailVerification = async () => {
   try {
-    const response = httpModule.post('account/users/resend_activation/')
+    await httpModule.post('account/users/resend_activation/')
   } catch (error) {
     console.log(error)
   }
