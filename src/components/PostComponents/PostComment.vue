@@ -70,7 +70,7 @@ const toggleAnswer = () => {
   } else {
     modalData.showModal = true
     modalData.title = 'Usuario no autorizado'
-    modalData.message = 'Solo pueden responden a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.'
+    modalData.message = 'Solo pueden responder a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.'
   }
 }
 
