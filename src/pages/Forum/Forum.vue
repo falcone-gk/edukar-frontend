@@ -32,11 +32,8 @@
         <h1 class="mb-2 font-bold">Cursos</h1>
         <div class="flex flex-col gap-1">
           <div v-for="course in courses" :key="'sub-' + course.id.toString()">
-            <input class="mr-4" type="radio" :name="course.name" :id="course.name" :value="course.id" v-model="checked">
+            <input class="mr-4" type="radio" :name="course.name" :id="course.name" :value="course.id" v-model="checked" @change="onChangeCourse">
             <label :for="course.name">{{ course.name }}</label>
-          </div>
-          <div class="text-center mt-4">
-            <input @click.prevent="getPosts()" class="btn-primary" type="submit" value="Actualizar">
           </div>
         </div>
       </form>
@@ -90,6 +87,11 @@ const getPosts = async (pagNumber: number|string=1) => {
     console.log(error)
   }
 }
+
+const onChangeCourse = () => {
+  getPosts()
+}
+
 onBeforeMount(async () => {
   await getPosts()
   
