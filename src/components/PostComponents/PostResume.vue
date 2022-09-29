@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { Router, useRouter } from 'vue-router';
-import { postInfoResume } from '../types/forumTypes';
+import { postInfoResume } from '../../types/forumTypes';
 
 interface Props {
   Args: {props: postInfoResume}
