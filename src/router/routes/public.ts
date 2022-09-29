@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
         ]
     },
     {
-        path: '/foro',
+        path: '/forum',
         component: () => import('@/layouts/Default.vue'),
         children:[
             {
