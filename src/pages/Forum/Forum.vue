@@ -11,6 +11,18 @@
     <div class="flex flex-col gap-2 basis-3/4">
       <h1 class="text-3xl">{{ currentCourse }}</h1>
       <PostResume v-for="post in postToShow" :Args="{props: post}" />
+      <div class="pagination mt-3 mx-auto">
+        <ul>
+          <li
+          v-for="(pag, index) in items"
+          class="inline-block cursor-pointer border border-gray-200 px-4 py-2"
+          :class="(pagData.current===pag)?'bg-primary-color text-white':'hover:bg-gray-50'"
+          @click.prevent="getPosts(pag)"
+          :key="index">
+            {{ pag }}
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="basis-1/4">
       <div class="mb-6">
@@ -24,7 +36,7 @@
             <label :for="course.name">{{ course.name }}</label>
           </div>
           <div class="text-center mt-4">
-            <input @click.prevent="updatePosts" class="btn-primary" type="submit" value="Actualizar">
+            <input @click.prevent="getPosts()" class="btn-primary" type="submit" value="Actualizar">
           </div>
         </div>
       </form>
@@ -36,22 +48,44 @@
 import PostResume from '@/components/PostComponents/PostResume.vue'
 import { ref, reactive, onBeforeMount } from 'vue';
 import { Router, useRouter } from 'vue-router';
-import httpModule from '../../services/httpModule';
 import { postInfoResume, subsectionType } from '../../types/forumTypes'
 import { useForumStore } from '../../stores/forum';
+import httpModule from '../../services/httpModule';
+import paginate from '../../services/pagination'
 
 const router: Router = useRouter()
+const forumStore = useForumStore()
 
 const checked = ref<number>(0)
 const courses = reactive<subsectionType[]>([{id: 0, name: 'Todos'}])
 const currentCourse = ref<string>(courses[checked.value].name)
 const postToShow = ref<postInfoResume[]>([])
-const forumStore = useForumStore()
 
-const getPosts = async () => {
+const pagData = reactive({
+  current: 1,
+  size: 5,
+  count: 0,
+})
+
+const items = ref<(number|string)[]>([])
+
+const getPosts = async (pagNumber: number|string=1) => {
   try {
-    const response = await httpModule.get('forum/sections/?course=0')
-    postToShow.value.push(...response.data)
+    // If the value is a string, by default the value = '...' then we do nothing
+    if (typeof pagNumber == 'string') {
+      return
+    }
+    // Reset pagination value to '1' or custom value
+    pagData.current = pagNumber as number
+    // Make get request to get posts from course specified
+    const url: string = `forum/sections/?course=${checked.value}&page=${pagData.current}&size=${pagData.size}`
+    const response = await httpModule.get(url)
+    // Update values after get request succesfull
+    currentCourse.value = courses[checked.value].name
+    pagData.count = response.data.count
+    const pagination = paginate(pagData.current, Math.floor(pagData.count / pagData.size) + 1)
+    items.value = pagination?.items
+    postToShow.value = response.data.results
   } catch(error) {
     console.log(error)
   }
@@ -65,11 +99,4 @@ onBeforeMount(async () => {
   }
   courses.push(...forumStore.subsections)
 })
-
-const updatePosts = async () => {
-  const url: string = 'forum/sections/?course=' + checked.value.toString()
-  const response = await httpModule.get(url)
-  postToShow.value = response.data
-  currentCourse.value = courses[checked.value].name
-}
 </script>
