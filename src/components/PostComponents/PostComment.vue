@@ -15,10 +15,18 @@
       </div>
     </div>
     <div class="text-sm" v-html="Args.props.body"></div>
-    <div class="my-2">
+    <div class="flex gap-2 my-2">
       <button @click="toggleAnswer" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
+      </button>
+      <button v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
+        <font-icon icon="fa-solid fa-pencil" />
+        <span> Editar</span>
+      </button>
+      <button v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-red-300">
+        <font-icon icon="fa-solid fa-trash" />
+        <span> Eliminar</span>
       </button>
     </div>
 
