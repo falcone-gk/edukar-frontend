@@ -3,16 +3,16 @@
     <transition enter-active-class="transition ease-out duration-200 transform" enter-from-class="opacity-0"
       enter-to-class="opacity-100" leave-active-class="transition ease-in duration-200 transform"
       leave-from-class="opacity-100" leave-to-class="opacity-0">
-      <div ref="modal-backdrop" class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50" v-show="props.show">
+      <div ref="modal-backdrop" class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50" v-show="Args.props.show">
         <div class="flex items-start justify-center min-h-screen pt-24 text-center">
           <div class="bg-white rounded-lg text-left overflow-hidden shadow-xl p-8 w-1/2" role="dialog" ref="modal"
             aria-modal="true" aria-labelledby="modal-headline">
             <div class="modal">
               <div class="modal-header border-b-2 border-b-gray-100">
-                <h1 class="text-lg text-primary-color">{{ props.title }}</h1>
+                <h1 class="text-lg text-primary-color">{{ Args.props.title }}</h1>
               </div>
               <div class="py-2">
-                <p>{{ props.message }}</p>
+                <p>{{ Args.props.message }}</p>
               </div>
               <div class="text-right">
                 <button @click.prevent="emit('closeModal')" class="btn-primary">Cerrar</button>
@@ -26,14 +26,13 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  show: {
-    type: Boolean,
-    default: false
-  },
-  title: {type: String, required: true},
-  message: {type: String, required: true}
-})
+import { modalContent } from '../types/modalTypes';
+
+interface Props {
+  Args: {props: modalContent},
+}
+withDefaults(defineProps<Props>(), {})
+
 const emit = defineEmits<{
   (e: 'closeModal'): void
 }>()
