@@ -1,7 +1,16 @@
 <template>
-  <ModalDialog
-  :Args="{props: modalData}"
-  @close-modal="() => modalData.show = false" />
+
+  <!-- Modal used to show that a no logged user can't comment a post -->
+  <ModalDialog :show="isShownModalLogin"> 
+    <template #title>Usuario no autorizado</template>
+    <template #default>
+      <p>Solo pueden responder a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.</p>
+    </template>
+    <template #buttons>
+      <button @click="() => isShownModalLogin=false" class="btn-primary">Cerrar</button>
+    </template>
+  </ModalDialog>
+
   <div class="rounded border-t border-gray-100 max-w-4xl mx-auto p-4 shadow-md">
     <div id="post">
       <div class="flex items-center mb-6">
@@ -27,7 +36,7 @@
         :postId="postId"
         :Args="{props: comment}"
         @updateComments="updateCommentsPost"
-        @showLoginModal="openModal" />
+        @showLoginModal="() => isShownModalLogin=true" />
       </div>
     </div>
 
@@ -49,11 +58,12 @@ import httpModule from '../../services/httpModule';
 import translateDateMonth from '../../services/translate';
 import { useAuthStore } from '../../stores/auth';
 import { postStructure, commentStructure } from '../../types/forumTypes';
-import { modalContent } from '../../types/modalTypes';
 import ModalDialog from '@/components/ModalDialog.vue';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const authStore = useAuthStore()
+
+const isShownModalLogin = ref(false)    // Value to show modal dialog to tell user to login
 
 const slugTitle = router.params.slug
 const editor = ref<any>(null)
@@ -93,18 +103,5 @@ const sendComment = async () => {
 
 const updateCommentsPost = (updatedComments: commentStructure[]) => {
   comments.value = updatedComments
-}
-
-const modalData = reactive<modalContent>({
-  show: false,
-  title: '',
-  message: ''
-})
-
-// Modal content when user tries to write a comment without auth
-const openModal = () => {
-  modalData.show = true
-  modalData.title = 'Usuario no autorizado'
-  modalData.message = 'Solo pueden responder a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.'
 }
 </script>
