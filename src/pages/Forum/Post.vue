@@ -1,4 +1,7 @@
 <template>
+  <ModalDialog
+  :Args="{props: modalData}"
+  @close-modal="() => modalData.show = false" />
   <div class="rounded border-t border-gray-100 max-w-4xl mx-auto p-4 shadow-md">
     <div id="post">
       <div class="flex items-center mb-6">
@@ -23,7 +26,8 @@
         :key="'comment-' + comment.id.toString()"
         :postId="postId"
         :Args="{props: comment}"
-        @updateComments="updateCommentsPost" />
+        @updateComments="updateCommentsPost"
+        @showLoginModal="openModal" />
       </div>
     </div>
 
@@ -45,6 +49,8 @@ import httpModule from '../../services/httpModule';
 import translateDateMonth from '../../services/translate';
 import { useAuthStore } from '../../stores/auth';
 import { postStructure, commentStructure } from '../../types/forumTypes';
+import { modalContent } from '../../types/modalTypes';
+import ModalDialog from '@/components/ModalDialog.vue';
 
 const router: RouteLocationNormalizedLoaded = useRoute()
 const authStore = useAuthStore()
@@ -87,5 +93,18 @@ const sendComment = async () => {
 
 const updateCommentsPost = (updatedComments: commentStructure[]) => {
   comments.value = updatedComments
+}
+
+const modalData = reactive<modalContent>({
+  show: false,
+  title: '',
+  message: ''
+})
+
+// Modal content when user tries to write a comment without auth
+const openModal = () => {
+  modalData.show = true
+  modalData.title = 'Usuario no autorizado'
+  modalData.message = 'Solo pueden responder a un comentario aquellos usuarios que se han logeado. Iniciar sesión si desea participar en el post.'
 }
 </script>
