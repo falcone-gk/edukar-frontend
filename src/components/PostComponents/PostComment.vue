@@ -19,7 +19,7 @@
         <font-icon icon="fa-solid fa-pencil" />
         <span> Editar</span>
       </button>
-      <button v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-red-300">
+      <button @click="emit('showDeleteModal', 'forum/comments/' + Args.props.id, 'comentario')" v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-red-300">
         <font-icon icon="fa-solid fa-trash" />
         <span> Eliminar</span>
       </button>
@@ -55,7 +55,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {})
 const emit = defineEmits<{
   (e: 'updateComments', updatedArray: commentStructure[]): void,
-  (e: 'showLoginModal'): void
+  (e: 'showLoginModal'): void,
+  (e: 'showDeleteModal', url: string, type: string): void
 }>()
 const authStore = useAuthStore()
 const editor = ref<any>(null)
