@@ -11,6 +11,18 @@
     </template>
   </ModalDialog>
 
+  <!-- Modal used to confirm if user wants to delete comment, reply or post -->
+  <ModalDialog :show="deleteModalData.isShown"> 
+    <template #title>Eliminar {{ deleteModalData.objType }}</template>
+    <template #default>
+      <p>Usted va a elminar su {{ deleteModalData.objType }}. ¿Está seguro de hacerlo?</p>
+    </template>
+    <template #buttons>
+      <button @click="deleteObj" class="rounded px-4 bg-red-600 hover:bg-red-400 text-white py-1.5 w-16 mr-2">Si</button>
+      <button @click="() => deleteModalData.isShown=false" class="btn-primary w-16">No</button>
+    </template>
+  </ModalDialog>
+
   <div class="rounded border-t border-gray-100 max-w-4xl mx-auto p-4 shadow-md">
     <div id="post">
       <div class="flex items-center mb-6">
@@ -36,7 +48,8 @@
         :postId="postId"
         :Args="{props: comment}"
         @updateComments="updateCommentsPost"
-        @showLoginModal="() => isShownModalLogin=true" />
+        @showLoginModal="() => isShownModalLogin=true"
+        @showDeleteModal="onOpenDeleteModal" />
       </div>
     </div>
 
@@ -103,5 +116,30 @@ const sendComment = async () => {
 
 const updateCommentsPost = (updatedComments: commentStructure[]) => {
   comments.value = updatedComments
+}
+
+const deleteModalData = reactive({
+  isShown: false,
+  objType: '',
+  urlDelete: ''
+})
+
+const onOpenDeleteModal = (urlDelete: string, objType: string) => {
+  deleteModalData.isShown = true
+  deleteModalData.urlDelete = urlDelete
+  deleteModalData.objType = objType
+}
+
+const deleteObj = async () => {
+  try {
+    const response = await httpModule.delete(
+      deleteModalData.urlDelete,
+      {data: {post: postId.value}}
+    )
+    updateCommentsPost(response.data)
+    deleteModalData.isShown = false
+  } catch(error) {
+    console.log(error)
+  }
 }
 </script>
