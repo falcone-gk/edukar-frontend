@@ -1,9 +1,14 @@
 <template>
-  <ModalDialog
-  :show="modalData.showModal"
-  :title="modalData.title"
-  :message="modalData.message"
-  @closeModal="() => {modalData.showModal = false}" />
+  <!-- Modal used to show that a no logged user can't comment a post -->
+  <ModalDialog :show="isShownLoginModalError"> 
+    <template #title>Credenciales incorrectas</template>
+    <template #default>
+      <p>El nombre de usuario o contraseña son incorrectos!</p>
+    </template>
+    <template #buttons>
+      <button @click="() => isShownLoginModalError=false" class="btn-primary">Cerrar</button>
+    </template>
+  </ModalDialog>
   <div class="grid place-items-center">
     <div class="w-[350px] p-4 border-t border-t-gray-100 shadow-md">
       <div class="mb-4 w-full">
@@ -27,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
 import { userLoginData } from '../../types/authTypes';
@@ -42,11 +47,7 @@ const loginForm = reactive<userLoginData>({
   password: ''
 })
 
-const modalData = reactive({
-  showModal: false,
-  title: '',
-  message: ''
-})
+const isShownLoginModalError = ref(false)
 
 const onLogin = async (data: userLoginData) => {
   try {
@@ -58,9 +59,7 @@ const onLogin = async (data: userLoginData) => {
     // pushing to home view.
     router.push({ name: 'home' })
   } catch (error) {
-    modalData.showModal = true
-    modalData.title = 'Credenciales incorrectas'
-    modalData.message = 'El nombre de usuario o contraseña son incorrectos!'
+    isShownLoginModalError.value = true
   }
 }
 </script>
