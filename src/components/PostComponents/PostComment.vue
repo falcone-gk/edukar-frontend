@@ -35,7 +35,8 @@
       <h2>Respuestas:</h2>
       <PostReply v-for="reply in Args.props.replies"
       :key="'reply-' + reply.id"
-      :Args="{props: reply}" />
+      :Args="{props: reply}"
+      @showDeleteModal="deleteReplyEmit" />
     </div>
   </div>
 </template>
@@ -82,5 +83,9 @@ const replyComment = async () => {
   isReplyActive.value = false
   editor.value.setText('')
   replyForm.body = ''
+}
+
+const deleteReplyEmit = (url: string, type: string) => {
+  emit('showDeleteModal', url, type)
 }
 </script>
