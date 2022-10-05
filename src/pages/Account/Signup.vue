@@ -17,7 +17,7 @@
           <p class="font-bold text-xs">Los campos con ' * ' son obligatorios</p>
         </div>
       </div>
-      <form :onsubmit="submitData">
+      <form @submit.prevent="submitData">
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
             <label class="label-control" for="username">Nombre de usuario*:</label>
@@ -66,9 +66,8 @@
 import { useAuthStore } from '../../stores/auth'
 
 const authStore = useAuthStore()
-const submitData = (e:any) => {
-  e.preventDefault()
-  const formData = new FormData(e.target)
+const submitData = (event: Event) => {
+  const formData = new FormData(event.target as HTMLFormElement)
   authStore.signup(formData)
 }
 </script>
