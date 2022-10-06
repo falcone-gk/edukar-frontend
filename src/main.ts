@@ -25,16 +25,16 @@ const globalOptions = {
     theme: 'snow',
     modules: {
         toolbar: [
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline'],        // toggled buttons
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [
-                { align: "" },
-                { align: "center" },
-                { align: "right" },
-                { align: "justify" }
-            ],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            // [
+            //     { align: "" },
+            //     { align: "center" },
+            //     { align: "right" },
+            //     { align: "justify" }
+            // ],
+            // [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
             [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             ["link"],
