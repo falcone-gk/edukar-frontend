@@ -46,7 +46,7 @@
           <div class="flex flex-col mt-2 gap-2 origin-top md:border md:border-primary-color rounded p-2 md:bg-white md:absolute md:whitespace-nowrap md:right-0" :class="classAccountMenu">
             <ul class="leading-8">
               <li class="px-2 hover:bg-primary-color hover:text-white">
-                <a class="" href="#">Cuenta</a>
+                <button @click.prevent="router.push({name: 'profile'})">Perfil</button>
               </li>
               <li class="px-2 hover:bg-primary-color hover:text-white">
                 <button @click.prevent="onLogout">Cerrar sesión</button>
