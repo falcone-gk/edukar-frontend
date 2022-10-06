@@ -15,7 +15,7 @@
         <font-icon icon="fa-solid fa-reply" />
         <span> Responder</span>
       </button>
-      <button v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
+      <button @click="toggleEditor" v-if="Args.props.author.username === authStore.username" class="text-xs text-slate-700 rounded bg-gray-100 px-2 py-1 hover:bg-indigo-100">
         <font-icon icon="fa-solid fa-pencil" />
         <span> Editar</span>
       </button>
@@ -25,10 +25,14 @@
       </button>
     </div>
 
-    <div v-if="isReplyActive" class="new-reply-form my-3">
-      <h2 class="mb-2">Responde al comentario:</h2>
-      <QuillEditor ref="editor" v-model:content="replyForm.body" contentType="html" />
-      <button @click.prevent="replyComment" class="btn-primary mt-2">Responder</button>
+    <div v-if="authStore.isAuthenticated">
+      <div v-show="isReplyActive || isEditActive" class="new-reply-form my-3">
+        <h2 v-show="isReplyActive" class="mb-2">Responde al comentario:</h2>
+        <h2 v-show="isEditActive" class="mb-2">Edita tu comentario:</h2>
+        <QuillEditor ref="editor" v-model:content="replyForm.body" contentType="html" />
+        <button v-show="isReplyActive" @click.prevent="replyComment" class="btn-primary mt-2">Responder</button>
+        <button v-show="isEditActive" @click.prevent="updateComment" class="btn-primary mt-2">Actualizar</button>
+      </div>
     </div>
 
     <div v-if="Args.props.replies.length" class="replies ml-8">
@@ -64,25 +68,50 @@ const editor = ref<any>(null)
 
 // value used to toggle reply to comment box
 const isReplyActive = ref<boolean>(false)
-const toggleAnswer = () => {
-  if (authStore.isAuthenticated) {
-    isReplyActive.value = !isReplyActive.value
-  } else {
-    emit('showLoginModal')
-  }
-}
-
+const isEditActive = ref<boolean>(false)
 const replyForm = reactive({
   post: props.postId,
   comment: props.Args.props.id,
   body: ''
 })
+const setTextEditorValue = (body: string='') => {
+  editor.value.setHTML(body)
+  replyForm.body = body
+}
+
+const toggleAnswer = () => {
+  if (authStore.isAuthenticated) {
+    isEditActive.value = false
+    isReplyActive.value = !isReplyActive.value
+    setTextEditorValue()
+  } else {
+    emit('showLoginModal')
+  }
+}
+
+const toggleEditor = () => {
+  if (authStore.isAuthenticated) {
+    isReplyActive.value = false
+    isEditActive.value = !isEditActive.value
+    setTextEditorValue(props.Args.props.body)
+  } else {
+    emit('showLoginModal')
+  }
+}
+
 const replyComment = async () => {
   const response = await httpModule.post('forum/replies/', replyForm)
   emit('updateComments', response.data)
   isReplyActive.value = false
-  editor.value.setText('')
-  replyForm.body = ''
+  setTextEditorValue()
+}
+
+const updateComment = async () => {
+  const url: string = `forum/comments/${props.Args.props.id}/`
+  const response = await httpModule.put(url, replyForm)
+  emit('updateComments', response.data)
+  isEditActive.value = false
+  setTextEditorValue()
 }
 
 const deleteReplyEmit = (url: string, type: string) => {
