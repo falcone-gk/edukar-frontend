@@ -29,3 +29,8 @@
     @apply min-h-[300px] bg-gray-50
   }
 }
+@layer component {
+  .ql-toolbar {
+    @apply rounded-t-lg
+  }
+}
