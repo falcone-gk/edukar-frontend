@@ -1,8 +1,13 @@
 <template>
   <Header />
-  <main class="container mx-auto my-12 px-3">
-    <router-view />
-  </main>
+  <Suspense>
+    <main class="container mx-auto my-12 px-3">
+      <router-view />
+    </main>
+    <template #fallback>
+      Loading...
+    </template>
+  </Suspense>
   <Footer />
 </template>
 
