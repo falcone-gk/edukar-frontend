@@ -7,6 +7,9 @@
   html {
     font-family: Lexend Deca, system-ui, sans-serif;
   }
+  p {
+    @apply font-light
+  }
 }
 
 @layer components {
