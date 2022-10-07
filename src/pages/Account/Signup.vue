@@ -30,12 +30,12 @@
         </div>
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
           <div class="w-full">
-            <label class="label-control" for="name">Nombre(s)*:</label>
-            <input class="form-control" name="name" id="name" type="text" required>
+            <label class="label-control" for="first_name">Nombre(s)*:</label>
+            <input class="form-control" name="first_name" id="first_name" type="text" required>
           </div>
           <div class="w-full">
-            <label class="label-control" for="last-name">Apellidos*:</label>
-            <input class="form-control" name="last-name" id="last-name" type="text" required>
+            <label class="label-control" for="last_name">Apellidos*:</label>
+            <input class="form-control" name="last_name" id="last_name" type="text" required>
           </div>
         </div>
         <div class="flex gap-4 mb-6 flex-col sm:flex-row">
