@@ -47,5 +47,4 @@ import httpModule from '../../services/httpModule';
 
 const res = await httpModule.get('account/users/me')
 const userData = await res.data
-console.log(userData)
 </script>
